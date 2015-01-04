@@ -12,8 +12,7 @@ public class TestCase {
 		
 	}
 	
-	public TestResult run() throws Exception{
-		TestResult result = new TestResult();
+	public void run(TestResult result){
 		result.testStarted();
 		this.setUp();
 		
@@ -24,8 +23,7 @@ public class TestCase {
 			result.testFailed();
 		}
 		
-		tearDown();		
-		return result;
+		this.tearDown();		
 	}
 	
 	public void tearDown(){
