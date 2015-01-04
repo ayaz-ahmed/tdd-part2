@@ -7,7 +7,14 @@ public class TestCaseTest {
 		assert(test.wasRun);
 	}
 	
+	public void testSetUp() throws Exception{
+		WasRun test = new WasRun("testMethod");
+		test.run();
+		assert(test.wasSetUp);
+	}
+	
 	public static void main(String args[]) throws Exception{	
 		new TestCaseTest().testRunning();
+		new TestCaseTest().testSetUp();
 	}
 }
