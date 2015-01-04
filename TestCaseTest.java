@@ -1,42 +1,59 @@
-public class TestCaseTest {
+public class TestCaseTest extends TestCase{
 	WasRun test;
 	TestResult result;
 	
+	public TestCaseTest(String name) {
+        super(name);
+    }
+	
 	public void setUp(){
-		test = new WasRun("testMethod");
+		result= new TestResult();
 	} 
 	
 	public void testTemplateMethod() throws Exception{
-		WasRun test = new WasRun("testMethod");
-		test.run();
+		test = new WasRun("testMethod");
+		test.run(result);
 		assert("setUp testMethod tearDown " == test.log);
 	}
 	
 	public void testResult() throws Exception{
 		test = new WasRun("testMethod");
-		result = test.run();
+		test.run(result);
 		assert("1 run, 0 failed" == result.summary());
 	}
 	
 	public void testFailedResult() throws Exception{
 		test = new WasRun("testBrokenMethod");
-		result = test.run();
+		test.run(result);
 		assert("1 run, 1 failed" == result.summary());
 	}
 	
 	public void testFailedResultFormatting(){
-		result = new TestResult();
 		result.testStarted();
 		result.testFailed();
 		assert("1 run, 1 failed" == result.summary());
 	}
 	
-	public static void main(String args[]) throws Exception{	
-		new TestCaseTest().setUp();
-		new TestCaseTest().testTemplateMethod();
+	public void testSuite(){
+		TestSuite suite = new TestSuite();
 		
-		new TestCaseTest().testResult();
-		new TestCaseTest().testFailedResult();
-		new TestCaseTest().testFailedResultFormatting();
+		suite.add(new WasRun("testMethod"));
+		suite.add(new WasRun("testBrokenMethod"));
+			
+		suite.run(result);
+		assert("2 run, 1 failed" == result.summary());
+	}
+		
+	public static void main(String args[]) throws Exception{	
+		TestResult result = new TestResult();
+		
+        (new TestCaseTest("testTemplateMethod")).run(result);
+        (new TestCaseTest("testResult")).run(result);
+        (new TestCaseTest("testFailedResult")).run(result);
+        (new TestCaseTest("testFailedResultFormatting")).run(result);
+        (new TestCaseTest("testSuite")).run(result);
+
+        result.summary();
+		
 	}
 }
