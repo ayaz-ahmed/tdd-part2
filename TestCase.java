@@ -12,9 +12,15 @@ public class TestCase {
 		
 	}
 	public void run() throws Exception{
+//		result.testStarted();
 		this.setUp();
 		Method method = this.getClass().getMethod(this.methodName);
 		method.invoke(this);
+		tearDown();
 	}
+	
+	public void tearDown(){
+		
+	} 
 	
 }
