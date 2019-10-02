@@ -3,6 +3,8 @@ import java.lang.reflect.Method;
 
 public class TestCase {
 	private String methodName;
+	
+	private String test;
 
 	public TestCase(String methodName){
 		this.methodName = methodName;
